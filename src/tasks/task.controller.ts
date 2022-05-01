@@ -18,10 +18,12 @@ export class TasksController {
     @Body('title') taskTitle: string,
     @Body('description') taskDescription: string,
   ) {
-    const generateId = await this.taskservice.insertTasks(taskTitle, taskDescription);
+    const generateId = await this.taskservice.insertTasks(
+      taskTitle,
+      taskDescription,
+    );
     return { id: generateId };
   }
-
 
   @Get()
   async getallTasks() {
@@ -30,27 +32,23 @@ export class TasksController {
   }
 
   @Get(':id')
-  getProduct(@Param('id') prodId: string) {
-    return this.taskservice.getSingleTask(prodId);
+  getProduct(@Param('id') taskId: string) {
+    return this.taskservice.getSingleTask(taskId);
   }
-
 
   @Patch(':id')
   async updateTask(
-    @Param('id') prodId: string,
+    @Param('id') taskId: string,
     @Body('title') prodTitle: string,
     @Body('description') prodDesc: string,
   ) {
-    await this.taskservice.updateTask(prodId, prodTitle, prodDesc);
+    await this.taskservice.updateTask(taskId, prodTitle, prodDesc);
     return null;
   }
- 
-
 
   @Delete(':id')
-  async removeProduct(@Param('id') prodId: string) {
-      await this.taskservice.deleteTask(prodId);
-      return null;
+  async removeProduct(@Param('id') taskId: string) {
+    await this.taskservice.deleteTask(taskId);
+    return null;
   }
-
 }
